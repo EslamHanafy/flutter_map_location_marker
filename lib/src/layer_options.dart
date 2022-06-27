@@ -18,7 +18,7 @@ class LocationMarkerLayerOptions extends LayerOptions {
   final Stream<LocationMarkerPosition> positionStream;
 
   /// A Stream that provide heading data for this marker.
-  final Stream<LocationMarkerHeading> headingStream;
+  // final Stream<LocationMarkerHeading> headingStream;
 
   /// The main marker widget.
   final Widget marker;
@@ -62,7 +62,7 @@ class LocationMarkerLayerOptions extends LayerOptions {
   LocationMarkerLayerOptions({
     Key? key,
     Stream<LocationMarkerPosition>? positionStream,
-    Stream<LocationMarkerHeading>? headingStream,
+    // Stream<LocationMarkerHeading>? headingStream,
     this.marker = const DefaultLocationMarker(),
     this.markerSize = const Size(20, 20),
     this.markerDirection = MarkerDirection.top,
@@ -82,8 +82,8 @@ class LocationMarkerLayerOptions extends LayerOptions {
     Stream<void>? rebuild,
   })  : positionStream = positionStream ??
             const LocationMarkerDataStreamFactory().geolocatorPositionStream(),
-        headingStream = headingStream ??
-            const LocationMarkerDataStreamFactory().compassHeadingStream(),
+        // headingStream = headingStream ??
+        //     const LocationMarkerDataStreamFactory().compassHeadingStream(),
         moveAnimationDuration =
             moveAnimationDuration ?? markerAnimationDuration,
         rotateAnimationDuration =

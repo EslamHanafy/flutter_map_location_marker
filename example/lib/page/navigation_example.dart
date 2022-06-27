@@ -76,7 +76,7 @@ class _NavigationExampleState extends State<NavigationExample> {
                 ),
               ),
               markerSize: const Size(40, 40),
-              markerDirection: MarkerDirection.heading,
+              // markerDirection: MarkerDirection.heading,
             ),
           ),
         ],

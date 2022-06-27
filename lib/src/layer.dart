@@ -69,7 +69,7 @@ class LocationMarkerLayerState extends State<LocationMarkerLayer>
     _isFirstLocationUpdate = true;
     _isFirstHeadingUpdate = true;
     _positionStreamSubscription = _subscriptPositionStream();
-    _headingStreamSubscription = _subscriptHeadingStream();
+    // _headingStreamSubscription = _subscriptHeadingStream();
     _centerCurrentLocationStreamSubscription =
         widget.plugin.centerCurrentLocationStream?.listen((double? zoom) {
       if (_currentPosition != null) {
@@ -92,7 +92,7 @@ class LocationMarkerLayerState extends State<LocationMarkerLayer>
   void didUpdateWidget(LocationMarkerLayer oldWidget) {
     super.didUpdateWidget(oldWidget);
     final previousPositionStream = _locationMarkerOpts.positionStream;
-    final previousHeadingStream = _locationMarkerOpts.headingStream;
+    // final previousHeadingStream = _locationMarkerOpts.headingStream;
     if (widget.locationMarkerOpts != oldWidget.locationMarkerOpts) {
       _locationMarkerOpts =
           widget.locationMarkerOpts ?? LocationMarkerLayerOptions();
@@ -100,10 +100,10 @@ class LocationMarkerLayerState extends State<LocationMarkerLayer>
         _positionStreamSubscription.cancel();
         _positionStreamSubscription = _subscriptPositionStream();
       }
-      if (_locationMarkerOpts.headingStream != previousHeadingStream) {
-        _headingStreamSubscription.cancel();
-        _headingStreamSubscription = _subscriptHeadingStream();
-      }
+      // if (_locationMarkerOpts.headingStream != previousHeadingStream) {
+      //   _headingStreamSubscription.cancel();
+      //   _headingStreamSubscription = _subscriptHeadingStream();
+      // }
     }
   }
 
@@ -145,29 +145,29 @@ class LocationMarkerLayerState extends State<LocationMarkerLayer>
       ..onError((_) => setState(() => _currentPosition = null));
   }
 
-  StreamSubscription<LocationMarkerHeading> _subscriptHeadingStream() {
-    return _locationMarkerOpts.headingStream.listen((heading) {
-      setState(() => _currentHeading = heading);
+  // StreamSubscription<LocationMarkerHeading> _subscriptHeadingStream() {
+  //   return _locationMarkerOpts.headingStream.listen((heading) {
+  //     setState(() => _currentHeading = heading);
 
-      bool turnHeadingUp;
-      switch (widget.plugin.turnOnHeadingUpdate) {
-        case TurnOnHeadingUpdate.always:
-          turnHeadingUp = true;
-          break;
-        case TurnOnHeadingUpdate.once:
-          turnHeadingUp = _isFirstHeadingUpdate;
-          _isFirstHeadingUpdate = false;
-          break;
-        case TurnOnHeadingUpdate.never:
-          turnHeadingUp = false;
-          break;
-      }
-      if (turnHeadingUp) {
-        _rotateMap(-_currentHeading!.heading / pi * 180);
-      }
-    })
-      ..onError((_) => setState(() => _currentPosition = null));
-  }
+  //     bool turnHeadingUp;
+  //     switch (widget.plugin.turnOnHeadingUpdate) {
+  //       case TurnOnHeadingUpdate.always:
+  //         turnHeadingUp = true;
+  //         break;
+  //       case TurnOnHeadingUpdate.once:
+  //         turnHeadingUp = _isFirstHeadingUpdate;
+  //         _isFirstHeadingUpdate = false;
+  //         break;
+  //       case TurnOnHeadingUpdate.never:
+  //         turnHeadingUp = false;
+  //         break;
+  //     }
+  //     if (turnHeadingUp) {
+  //       _rotateMap(-_currentHeading!.heading / pi * 180);
+  //     }
+  //   })
+  //     ..onError((_) => setState(() => _currentPosition = null));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -215,53 +215,53 @@ class LocationMarkerLayerState extends State<LocationMarkerLayer>
             ),
           MarkerLayerOptions(
             markers: [
-              if (_locationMarkerOpts.showHeadingSector)
-                Marker(
-                  point: latLng,
-                  width: diameter,
-                  height: diameter,
-                  builder: (_) {
-                    return IgnorePointer(
-                      child: StreamBuilder(
-                        stream: _locationMarkerOpts.headingStream,
-                        builder: (
-                          BuildContext context,
-                          AsyncSnapshot<LocationMarkerHeading> snapshot,
-                        ) {
-                          if (snapshot.hasData) {
-                            return TweenAnimationBuilder(
-                              tween: LocationMarkerHeadingTween(
-                                begin: snapshot.data!,
-                                end: snapshot.data!,
-                              ),
-                              duration:
-                                  _locationMarkerOpts.rotateAnimationDuration,
-                              curve: _locationMarkerOpts.rotateAnimationCurve,
-                              builder: (
-                                BuildContext context,
-                                LocationMarkerHeading heading,
-                                Widget? child,
-                              ) {
-                                return CustomPaint(
-                                  size: Size.fromRadius(
-                                    _locationMarkerOpts.headingSectorRadius,
-                                  ),
-                                  painter: HeadingSector(
-                                    _locationMarkerOpts.headingSectorColor,
-                                    heading.heading,
-                                    heading.accuracy,
-                                  ),
-                                );
-                              },
-                            );
-                          } else {
-                            return const SizedBox.shrink();
-                          }
-                        },
-                      ),
-                    );
-                  },
-                ),
+              // if (_locationMarkerOpts.showHeadingSector)
+              //   Marker(
+              //     point: latLng,
+              //     width: diameter,
+              //     height: diameter,
+              //     builder: (_) {
+              //       return IgnorePointer(
+              //         child: StreamBuilder(
+              //           stream: _locationMarkerOpts.headingStream,
+              //           builder: (
+              //             BuildContext context,
+              //             AsyncSnapshot<LocationMarkerHeading> snapshot,
+              //           ) {
+              //             if (snapshot.hasData) {
+              //               return TweenAnimationBuilder(
+              //                 tween: LocationMarkerHeadingTween(
+              //                   begin: snapshot.data!,
+              //                   end: snapshot.data!,
+              //                 ),
+              //                 duration:
+              //                     _locationMarkerOpts.rotateAnimationDuration,
+              //                 curve: _locationMarkerOpts.rotateAnimationCurve,
+              //                 builder: (
+              //                   BuildContext context,
+              //                   LocationMarkerHeading heading,
+              //                   Widget? child,
+              //                 ) {
+              //                   return CustomPaint(
+              //                     size: Size.fromRadius(
+              //                       _locationMarkerOpts.headingSectorRadius,
+              //                     ),
+              //                     painter: HeadingSector(
+              //                       _locationMarkerOpts.headingSectorColor,
+              //                       heading.heading,
+              //                       heading.accuracy,
+              //                     ),
+              //                   );
+              //                 },
+              //               );
+              //             } else {
+              //               return const SizedBox.shrink();
+              //             }
+              //           },
+              //         ),
+              //       );
+              //     },
+              //   ),
               Marker(
                 point: latLng,
                 width: _locationMarkerOpts.markerSize.width,
@@ -275,41 +275,41 @@ class LocationMarkerLayerState extends State<LocationMarkerLayer>
                         angle: -widget.map.rotationRad,
                         child: _locationMarkerOpts.marker,
                       );
-                    case MarkerDirection.heading:
-                      return StreamBuilder(
-                        stream: _locationMarkerOpts.headingStream,
-                        builder: (
-                          BuildContext context,
-                          AsyncSnapshot<LocationMarkerHeading> snapshot,
-                        ) {
-                          if (snapshot.hasData) {
-                            return TweenAnimationBuilder(
-                              tween: LocationMarkerHeadingTween(
-                                begin: snapshot.data!,
-                                end: snapshot.data!,
-                              ),
-                              duration:
-                                  _locationMarkerOpts.rotateAnimationDuration,
-                              curve: _locationMarkerOpts.rotateAnimationCurve,
-                              builder: (
-                                BuildContext context,
-                                LocationMarkerHeading heading,
-                                Widget? child,
-                              ) {
-                                return Transform.rotate(
-                                  angle: heading.heading,
-                                  child: _locationMarkerOpts.marker,
-                                );
-                              },
-                            );
-                          } else {
-                            return Transform.rotate(
-                              angle: -widget.map.rotationRad,
-                              child: _locationMarkerOpts.marker,
-                            );
-                          }
-                        },
-                      );
+                    // case MarkerDirection.heading:
+                    //   return StreamBuilder(
+                    //     stream: _locationMarkerOpts.headingStream,
+                    //     builder: (
+                    //       BuildContext context,
+                    //       AsyncSnapshot<LocationMarkerHeading> snapshot,
+                    //     ) {
+                    //       if (snapshot.hasData) {
+                    //         return TweenAnimationBuilder(
+                    //           tween: LocationMarkerHeadingTween(
+                    //             begin: snapshot.data!,
+                    //             end: snapshot.data!,
+                    //           ),
+                    //           duration:
+                    //               _locationMarkerOpts.rotateAnimationDuration,
+                    //           curve: _locationMarkerOpts.rotateAnimationCurve,
+                    //           builder: (
+                    //             BuildContext context,
+                    //             LocationMarkerHeading heading,
+                    //             Widget? child,
+                    //           ) {
+                    //             return Transform.rotate(
+                    //               angle: heading.heading,
+                    //               child: _locationMarkerOpts.marker,
+                    //             );
+                    //           },
+                    //         );
+                    //       } else {
+                    //         return Transform.rotate(
+                    //           angle: -widget.map.rotationRad,
+                    //           child: _locationMarkerOpts.marker,
+                    //         );
+                    //       }
+                    //     },
+                    //   );
                   }
                 },
               ),

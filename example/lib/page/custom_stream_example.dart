@@ -71,7 +71,7 @@ class _CustomStreamExampleState extends State<CustomStreamExample> {
           LocationMarkerLayerWidget(
             options: LocationMarkerLayerOptions(
               positionStream: positionStreamController.stream,
-              headingStream: headingStreamController.stream,
+              // headingStream: headingStreamController.stream,
             ),
           ),
         ],

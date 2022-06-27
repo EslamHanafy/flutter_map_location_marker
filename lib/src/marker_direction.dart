@@ -7,5 +7,5 @@ enum MarkerDirection {
   north,
 
   /// Follow the heading sector.
-  heading,
+  // heading,
 }
