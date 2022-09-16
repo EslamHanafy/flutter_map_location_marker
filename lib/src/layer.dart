@@ -46,11 +46,11 @@ class LocationMarkerLayerState extends State<LocationMarkerLayer>
     with TickerProviderStateMixin {
   late LocationMarkerLayerOptions _locationMarkerOpts;
   late bool _isFirstLocationUpdate;
-  late bool _isFirstHeadingUpdate;
+  // late bool _isFirstHeadingUpdate;
   LocationMarkerPosition? _currentPosition;
   LocationMarkerHeading? _currentHeading;
   late StreamSubscription<LocationMarkerPosition> _positionStreamSubscription;
-  late StreamSubscription<LocationMarkerHeading> _headingStreamSubscription;
+  // late StreamSubscription<LocationMarkerHeading> _headingStreamSubscription;
   double? _centeringZoom;
 
   /// Subscription to a stream for centering single that also include a zoom level.
@@ -67,7 +67,7 @@ class LocationMarkerLayerState extends State<LocationMarkerLayer>
     _locationMarkerOpts =
         widget.locationMarkerOpts ?? LocationMarkerLayerOptions();
     _isFirstLocationUpdate = true;
-    _isFirstHeadingUpdate = true;
+    // _isFirstHeadingUpdate = true;
     _positionStreamSubscription = _subscriptPositionStream();
     // _headingStreamSubscription = _subscriptHeadingStream();
     _centerCurrentLocationStreamSubscription =
@@ -110,7 +110,7 @@ class LocationMarkerLayerState extends State<LocationMarkerLayer>
   @override
   void dispose() {
     _positionStreamSubscription.cancel();
-    _headingStreamSubscription.cancel();
+    // _headingStreamSubscription.cancel();
     _centerCurrentLocationStreamSubscription?.cancel();
     _turnHeadingUpStreamSubscription?.cancel();
     _centerCurrentLocationAnimationController?.dispose();
